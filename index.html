@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecuperAuto | Reparação Automotiva de Excelência</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* =========================================== */
+        /* VARIÁVEIS DE CORES E CONFIGURAÇÕES PRINCIPAIS */
+        /* =========================================== */
+        :root {
+            --verde-principal: #0a5c36;
+            --verde-escuro: #073c24;
+            --verde-claro: #0e8a4f;
+            --amarelo: #ffc107;
+            --amarelo-escuro: #e6ac00;
+            --amarelo-claro: #ffda6a;
+            --preto: #000000;
+            --preto-cinza: #1a1a1a;
+            --branco: #ffffff;
+            --cinza-claro: #f8f9fa;
+            --cinza-medio: #e9ecef;
+            --transicao-padrao: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transicao-rapida: all 0.3s ease;
+            --borda-arredondada: 12px;
+            --borda-circulo: 50%;
+        }
+
+        /* =========================================== */
+        /* RESET E CONFIGURAÇÕES GERAIS */
+        /* =========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: var(--branco);
+            overflow-x: hidden;
+            position: relative;
+            padding-top: 100px; /* IMPORTANTE: Espaço para o cabeçalho fixo */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: var(--preto);
+            line-height: 1.3;
+            letter-spacing: 0.5px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        /* =========================================== */
+        /* HEADER CORRIGIDO - APENAS LOGO E HAMBURGUER */
+        /* =========================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transicao-rapida);
+            border-bottom: 2px solid var(--amarelo);
+            padding: 15px 0;
+        }
+
+        header.scrolled {
+            padding: 10px 0;
+            background-color: rgba(255, 255, 255, 0.98);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            position: relative;
+            min-height: 90px;
+            height: auto;
+        }
+
+        /* LOGO RESPONSIVA - SOLUÇÃO DEFINITIVA */
+        .logo-container {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: var(--transicao-padrao);
+            z-index: 10;
+            width: auto;
+            padding: 5px 0;
+        }
+
+        .logo-imagem {
+            width: auto;
+            height: 65px; /* Altura fixa para desktop */
+            max-height: 65px;
+            min-height: 30px; /* Altura mínima para mobile */
+            object-fit: contain;
+            transition: var(--transicao-padrao);
+            filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.1));
+        }
+
+        .logo-container:hover .logo-imagem {
+            transform: scale(1.05);
+        }
+
+        /* BOTÃO HAMBURGUER - À ESQUERDA */
+        .mobile-menu-toggle {
+            display: flex;
+            background: none;
+            border: none;
+            color: var(--verde-principal);
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 1001;
+            transition: var(--transicao-padrao);
+            width: 50px;
+            height: 50px;
+            border-radius: var(--borda-arredondada);
+            background: rgba(10, 92, 54, 0.05);
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+        }
+
+        .mobile-menu-toggle:hover {
+            color: var(--amarelo);
+            background: rgba(10, 92, 54, 0.1);
+            transform: rotate(90deg);
+        }
+
+        /* Menu Mobile */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--branco) 0%, #f8f9fa 100%);
+            z-index: 1000;
+            transition: right 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+            padding: 80px 30px 30px;
+            display: flex;
+            flex-direction: column;
+            border-left: 3px solid var(--amarelo);
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            width: 100%;
+        }
+
+        .mobile-nav ul li {
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateX(20px);
+            animation: slideInRight 0.5s forwards;
+        }
+
+        .mobile-nav ul li:nth-child(1) { animation-delay: 0.1s; }
+        .mobile-nav ul li:nth-child(2) { animation-delay: 0.2s; }
+        .mobile-nav ul li:nth-child(3) { animation-delay: 0.3s; }
+        .mobile-nav ul li:nth-child(4) { animation-delay: 0.4s; }
+        .mobile-nav ul li:nth-child(5) { animation-delay: 0.5s; }
+        .mobile-nav ul li:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes slideInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .mobile-nav ul li a {
+            color: var(--preto);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 18px;
+            display: block;
+            padding: 12px 15px;
+            transition: var(--transicao-rapida);
+            border-radius: var(--borda-arredondada);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-nav ul li a:hover {
+            color: var(--verde-principal);
+            background: rgba(10, 92, 54, 0.05);
+            transform: translateX(5px);
+        }
+
+        .mobile-nav ul li a i {
+            margin-right: 10px;
+            color: var(--amarelo);
+            width: 20px;
+            text-align: center;
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: rgba(10, 92, 54, 0.1);
+            border: none;
+            color: var(--verde-principal);
+            font-size: 24px;
+            cursor: pointer;
+            transition: var(--transicao-padrao);
+            width: 40px;
+            height: 40px;
+            border-radius: var(--borda-circulo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-nav-close:hover {
+            color: var(--amarelo);
+            background: var(--verde-principal);
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        /* Overlay para menu mobile */
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            backdrop-filter: blur(3px);
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* =========================================== */
+        /* HERO SECTION */
+        /* =========================================== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--branco);
+            text-align: center;
+            overflow: hidden;
+            padding-top: 50px;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.7) contrast(1.1);
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(10, 92, 54, 0.85) 0%, 
+                rgba(0, 0, 0, 0.8) 100%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            margin-bottom: 40px;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .hero-title h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: var(--branco);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background-color: var(--amarelo);
+            border-radius: 2px;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 50px;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Botão CTA */
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--verde-principal), var(--verde-claro));
+            color: var(--branco);
+            padding: 22px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            letter-spacing: 1px;
+            transition: var(--transicao-padrao);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--amarelo);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, var(--verde-claro), var(--verde-principal));
+            border-color: var(--amarelo-claro);
+            letter-spacing: 1.5px;
+        }
+
+        .cta-button i {
+            margin-right: 12px;
+            font-size: 22px;
+            vertical-align: middle;
+        }
+
+        /* =========================================== */
+        /* SEÇÕES */
+        /* =========================================== */
+        .about {
+            background-color: var(--cinza-claro);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-text h3 {
+            font-size: 36px;
+            margin-bottom: 25px;
+            color: var(--verde-principal);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .about-text h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--amarelo);
+            border-radius: 2px;
+        }
+
+        .about-text p {
+            margin-bottom: 25px;
+            font-size: 17px;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 25px;
+            background-color: var(--branco);
+            border-radius: var(--borda-arredondada);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: var(--transicao-padrao);
+            border-left: 4px solid var(--verde-principal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            border-left-color: var(--amarelo);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--verde-principal), var(--verde-claro));
+            border-radius: var(--borda-circulo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            color: var(--branco);
+            font-size: 24px;
+            flex-shrink: 0;
+            transition: var(--transicao-padrao);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(10, 92, 54, 0.2);
+        }
+
+        .feature-item:hover .feature-icon {
+            background: linear-gradient(135deg, var(--amarelo), var(--amarelo-escuro));
+            color: var(--preto);
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .feature-text h4 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--preto);
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-text p {
+            color: #666;
+            font-size: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            height: 500px;
+            transition: var(--transicao-padrao);
+            border: 5px solid var(--branco);
+        }
+
+        .about-image:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--verde-escuro), var(--verde-principal));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--branco);
+            font-size: 18px;
+            position: relative;
+        }
+
+        .image-placeholder i {
+            font-size: 70px;
+            color: var(--amarelo);
+            z-index: 1;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* SEÇÃO SERVIÇOS - 4 POR LINHA NO DESKTOP */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 serviços por linha */
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-card {
+            background-color: var(--branco);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: var(--transicao-padrao);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(10, 92, 54, 0.1);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-color: var(--amarelo);
+        }
+
+        .service-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--verde-principal), var(--verde-claro));
+            border-radius: var(--borda-circulo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--branco);
+            font-size: 36px;
+            transition: var(--transicao-padrao);
+            box-shadow: 0 10px 20px rgba(10, 92, 54, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotate(15deg) scale(1.1);
+            background: linear-gradient(135deg, var(--amarelo), var(--amarelo-escuro));
+            color: var(--preto);
+        }
+
+        .service-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--verde-principal);
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-card p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* SEÇÃO SHOWCASE */
+        .showcase {
+            background-color: var(--preto);
+            color: var(--branco);
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 35px;
+            margin-top: 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .showcase-item {
+            position: relative;
+            height: 350px;
+            border-radius: var(--borda-arredondada);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            transition: var(--transicao-padrao);
+            cursor: pointer;
+        }
+
+        .showcase-item:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .showcase-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a1a, #333);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--branco);
+            position: relative;
+        }
+
+        .showcase-placeholder i {
+            font-size: 60px;
+            color: var(--amarelo);
+            z-index: 1;
+            transition: var(--transicao-padrao);
+        }
+
+        .showcase-item:hover .showcase-placeholder i {
+            transform: scale(1.3) rotate(15deg);
+        }
+
+        .showcase-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            z-index: 2;
+            color: var(--branco);
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.95));
+            transform: translateY(30px);
+            opacity: 0;
+            transition: var(--transicao-padrao);
+        }
+
+        .showcase-item:hover .showcase-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .showcase-overlay h3 {
+            color: var(--branco);
+            font-size: 24px;
+            margin-bottom: 10px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .showcase-overlay h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--amarelo);
+        }
+
+        /* SEÇÃO CTA */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(10, 92, 54, 0.95), rgba(10, 92, 54, 0.98)), url('https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--branco);
+            text-align: center;
+            padding: 140px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section h2 {
+            color: var(--branco);
+            font-size: 52px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            max-width: 750px;
+            margin: 0 auto 60px;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 1;
+            line-height: 1.8;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* SEÇÃO LOCALIZAÇÃO */
+        .location-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .location-info h3 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: var(--verde-principal);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .location-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--amarelo);
+            border-radius: 2px;
+        }
+
+        .location-info p {
+            margin-bottom: 20px;
+            font-size: 17px;
+            display: flex;
+            align-items: center;
+            transition: var(--transicao-rapida);
+            padding: 12px 0;
+            border-radius: var(--borda-arredondada);
+            padding-left: 15px;
+        }
+
+        .location-info p:hover {
+            transform: translateX(10px);
+            background: rgba(10, 92, 54, 0.05);
+        }
+
+        .location-info i {
+            color: var(--amarelo);
+            margin-right: 15px;
+            width: 20px;
+            font-size: 18px;
+        }
+
+        .map-placeholder {
+            height: 450px;
+            background: linear-gradient(135deg, var(--verde-escuro), var(--verde-principal));
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--branco);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transicao-padrao);
+            border: 5px solid var(--branco);
+        }
+
+        .map-placeholder:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .map-placeholder i {
+            font-size: 70px;
+            margin-bottom: 25px;
+            color: var(--amarelo);
+            z-index: 1;
+            transition: var(--transicao-padrao);
+        }
+
+        .map-placeholder:hover i {
+            transform: rotate(15deg) scale(1.2);
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--preto);
+            color: var(--branco);
+            padding: 100px 0 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 60px;
+            margin-bottom: 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+
+        .footer-logo-primary {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--branco);
+            margin-bottom: 5px;
+        }
+
+        .footer-logo-subtitle {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--amarelo);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.7);
+            margin: 20px 0 30px;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: var(--borda-circulo);
+            color: var(--branco);
+            transition: var(--transicao-padrao);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px) rotate(5deg);
+            border-color: var(--amarelo);
+        }
+
+        .social-links a i {
+            position: relative;
+            z-index: 1;
+            font-size: 20px;
+        }
+
+        .footer-heading {
+            font-size: 22px;
+            margin-bottom: 30px;
+            color: var(--branco);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--amarelo);
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transicao-rapida);
+            display: flex;
+            align-items: center;
+            padding: 5px 0;
+        }
+
+        .footer-links a:hover {
+            color: var(--amarelo);
+            padding-left: 10px;
+        }
+
+        .footer-links a i {
+            margin-right: 10px;
+            font-size: 14px;
+            color: var(--amarelo);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* BOTÃO WHATSAPP */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 80px;
+            height: 80px;
+            background-color: #25D366;
+            border-radius: var(--borda-circulo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--branco);
+            font-size: 36px;
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            transition: var(--transicao-padrao);
+            text-decoration: none;
+            animation: pulse-whatsapp 2s infinite;
+            border: 3px solid var(--branco);
+        }
+
+        @keyframes pulse-whatsapp {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 20px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 20px 40px rgba(37, 211, 102, 0.5);
+            animation: none;
+            background-color: #128C7E;
+        }
+
+        /* =========================================== */
+        /* RESPONSIVIDADE COMPLETA */
+        /* =========================================== */
+        @media (max-width: 1250px) {
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr); /* 3 por linha em telas médias-grandes */
+                gap: 25px;
+            }
+            
+            .logo-imagem {
+                height: 60px;
+            }
+            
+            .hero-title h1 {
+                font-size: 3.8rem;
+            }
+            
+            .cta-section h2 {
+                font-size: 46px;
+            }
+            
+            .about-content,
+            .location-content {
+                gap: 60px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 por linha em tablets grandes */
+            }
+            
+            .service-card h3 {
+                font-size: 20px;
+                min-height: 55px;
+            }
+            
+            .service-card {
+                padding: 35px 25px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .logo-imagem {
+                height: 55px;
+            }
+            
+            .about-content,
+            .location-content {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            
+            .about-image {
+                height: 400px;
+                order: -1;
+            }
+            
+            .hero {
+                min-height: 700px;
+            }
+            
+            .hero-title h1 {
+                font-size: 3.2rem;
+            }
+            
+            .section-padding {
+                padding: 80px 0;
+            }
+            
+            .about-features {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 90px;
+            }
+            
+            .logo-imagem {
+                height: 50px;
+            }
+            
+            .header-container {
+                min-height: 80px;
+                padding: 10px 20px;
+            }
+            
+            .mobile-menu-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 24px;
+            }
+            
+            .hero {
+                padding-top: 30px;
+                min-height: 600px;
+            }
+            
+            .hero-title h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .cta-button {
+                padding: 20px 40px;
+                font-size: 16px;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .service-card {
+                padding: 40px 30px;
+            }
+            
+            .service-card h3 {
+                min-height: auto;
+                margin-bottom: 15px;
+            }
+            
+            .showcase-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .whatsapp-float {
+                width: 70px;
+                height: 70px;
+                font-size: 32px;
+                bottom: 30px;
+                right: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body {
+                padding-top: 80px;
+            }
+            
+            .hero {
+                min-height: 550px;
+            }
+            
+            .logo-imagem {
+                height: 45px;
+                min-height: 40px;
+            }
+            
+            .hero-title h1 {
+                font-size: 2rem;
+                letter-spacing: 1px;
+            }
+            
+            .hero-title::after {
+                width: 80px;
+                height: 3px;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            .cta-section h2 {
+                font-size: 32px;
+            }
+            
+            .cta-section p {
+                font-size: 18px;
+            }
+            
+            .whatsapp-float {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .mobile-menu-toggle {
+                margin-left: 0;
+            }
+            
+            .video-background video {
+                display: none;
+            }
+            
+            .hero {
+                background: linear-gradient(135deg, rgba(10, 92, 54, 0.9) 0%, rgba(0, 0, 0, 0.8) 100%), url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=1267&q=80') center/cover no-repeat;
+            }
+            
+            .service-card {
+                padding: 30px 20px;
+            }
+            
+            .service-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .logo-imagem {
+                height: 40px;
+                min-height: 35px;
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+            
+            .header-container {
+                padding: 8px 15px;
+            }
+            
+            .hero-title h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .cta-button {
+                padding: 18px 30px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 350px) {
+            .logo-imagem {
+                height: 35px;
+                min-height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container header-container">
+            <!-- Botão Hamburguer (À ESQUERDA) -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- Logo CENTRALIZADA (RESPONSIVA) -->
+            <a href="#" class="logo-container">
+                <!-- SUA LOGO JÁ ESTÁ AQUI -->
+                <img src="logologo.png" alt="Recuperauto - Reparação Automotiva" class="logo-imagem">
+            </a>
+            
+            <!-- Navegação Desktop REMOVIDA COMPLETAMENTE -->
+        </div>
+    </header>
+
+    <!-- Menu Mobile -->
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav-close" id="mobileNavClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul>
+            <li><a href="#home"><i class="fas fa-home"></i> Início</a></li>
+            <li><a href="#about"><i class="fas fa-info-circle"></i> Sobre</a></li>
+            <li><a href="#services"><i class="fas fa-tools"></i> Serviços</a></li>
+            <li><a href="#showcase"><i class="fas fa-images"></i> Galeria</a></li>
+            <li><a href="#location"><i class="fas fa-map-marker-alt"></i> Localização</a></li>
+            <li><a href="#contact"><i class="fas fa-phone-alt"></i> Contato</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="video-background">
+            <video id="backgroundVideo" autoplay muted loop playsinline preload="auto" poster="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=1267&q=80">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-mechanic-working-on-a-car-engine-42946-large.mp4" type="video/mp4">
+                Seu navegador não suporta vídeos HTML5.
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-title">
+                <h1>Excelência em Reparação Automotiva</h1>
+            </div>
+            
+            <p>Restauramos a beleza e funcionalidade do seu veículo com tecnologia de ponta, materiais premium e mão de obra especializada.</p>
+            <a href="https://wa.me/554735333925?text=Olá! Gostaria de mais informações sobre os serviços da RecuperAuto" class="cta-button" target="_blank">
+                <i class="fab fa-whatsapp"></i> Fale Conosco no WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about section-padding" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Restaurando a Excelência do Seu Veículo</h3>
+                    <p>A RecuperAuto é referência em reparação automotiva premium, combinando técnicas tradicionais com tecnologia de ponta para entregar resultados que superam expectativas.</p>
+                    <p>Nossa equipe de especialistas é certificada e conta com anos de experiência em funilaria, pintura e reparos estruturais, garantindo que seu veículo receba o cuidado que merece.</p>
+                    
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Qualidade Garantida</h4>
+                                <p>Padrão premium em todos os serviços</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Entrega Punctual</h4>
+                                <p>Cumprimento rigoroso de prazos</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Segurança Total</h4>
+                                <p>Processos certificados e seguros</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Atendimento Personalizado</h4>
+                                <p>Soluções sob medida para cada cliente</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-car"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section - AGORA COM 8 SERVIÇOS (4 por linha no desktop) -->
+    <section class="services section-padding" id="services">
+        <div class="container">
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hammer"></i>
+                    </div>
+                    <h3>Funilaria</h3>
+                    <p>Reparos estruturais e corretivos com tecnologia de última geração para restaurar a forma original do seu veículo.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-spray-can"></i>
+                    </div>
+                    <h3>Pintura em Cabine Pressurizada</h3>
+                    <p>Ambiente controlado sem partículas em suspensão para um acabamento impecável e duradouro.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Martelinho de Ouro</h3>
+                    <p>Técnica especializada que recupera amassados sem necessidade de pintura, preservando a pintura original.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Polimento em Geral</h3>
+                    <p>Recuperação do brilho da pintura com técnicas avançadas de polimento e cristalização.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Laboratório de Tintas</h3>
+                    <p>Formulação personalizada de cores para igualdade perfeita com a pintura original do veículo.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-car-crash"></i>
+                    </div>
+                    <h3>Reparos em Geral</h3>
+                    <p>Soluções completas para danos de colisão, granizo e outros incidentes com garantia de qualidade.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-car-battery"></i>
+                    </div>
+                    <h3>Recuperação de Baterias</h3>
+                    <p>Serviço especializado na recuperação e manutenção de baterias automotivas, prolongando a vida útil e economizando recursos.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-oil-can"></i>
+                    </div>
+                    <h3>Manutenção Preventiva</h3>
+                    <p>Inspeção completa e manutenção preventiva para evitar problemas futuros e garantir o melhor desempenho do seu veículo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase Section -->
+    <section class="showcase section-padding" id="showcase">
+        <div class="container">
+            <div class="showcase-grid">
+                <div class="showcase-item">
+                    <div class="showcase-placeholder">
+                        <i class="fas fa-car-side"></i>
+                    </div>
+                    <div class="showcase-overlay">
+                        <h3>Reparo Estrutural Completo</h3>
+                        <p>Restauração 100% da estrutura original</p>
+                    </div>
+                </div>
+                
+                <div class="showcase-item">
+                    <div class="showcase-placeholder">
+                        <i class="fas fa-paint-roller"></i>
+                    </div>
+                    <div class="showcase-overlay">
+                        <h3>Pintura Premium</h3>
+                        <p>Acabamento impecável em ambiente controlado</p>
+                    </div>
+                </div>
+                
+                <div class="showcase-item">
+                    <div class="showcase-placeholder">
+                        <i class="fas fa-hammer"></i>
+                    </div>
+                    <div class="showcase-overlay">
+                        <h3>Martelinho de Ouro</h3>
+                        <p>Recuperação sem necessidade de pintura</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <h2>Pronto para Restaurar seu Veículo?</h2>
+            <p>Entre em contato agora mesmo e solicite um orçamento personalizado. Nossa equipe está pronta para atender você com excelência e agilidade.</p>
+            <a href="https://wa.me/554735333925?text=Olá! Gostaria de solicitar um orçamento para reparo automotivo" class="cta-button" target="_blank">
+                <i class="fab fa-whatsapp"></i> Solicitar Orçamento no WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location section-padding" id="location">
+        <div class="container">
+            <div class="location-content">
+                <div class="location-info">
+                    <h3>Venha nos Conhecer</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Endereço:</strong> Presidente Nereu, 1300 - Centro, Ituporanga - SC</p>
+                    <p><i class="fas fa-mail-bulk"></i> <strong>CEP:</strong> 88400-000</p>
+                    <p><i class="fas fa-phone-alt"></i> <strong>Telefone:</strong> +55 47 3533-3925</p>
+                    <p><i class="fas fa-clock"></i> <strong>Horário de Funcionamento:</strong></p>
+                    <p style="margin-left: 30px;">Segunda a Sexta: 8h às 18h</p>
+                    <p style="margin-left: 30px;">Sábado: 8h às 12h</p>
+                    
+                    <a href="https://wa.me/554735333925?text=Olá! Estou a caminho da RecuperAuto e gostaria de mais informações" class="cta-button" style="margin-top: 30px; display: inline-block;" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Confirmar Visita
+                    </a>
+                </div>
+                
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <p style="font-size: 18px; margin-bottom: 10px;">Visualização do mapa</p>
+                    <p>Presidente Nereu, 1300 - Ituporanga/SC</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="footer-logo-primary">Recuperauto</div>
+                        <div class="footer-logo-subtitle">REPARAÇÃO AUTOMOTIVA</div>
+                    </div>
+                    <p class="footer-description">Especialistas em reparação automotiva premium com mais de 15 anos de experiência. Restauramos a excelência do seu veículo com tecnologia, qualidade e atendimento personalizado.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/recuperautoreparacaoautomotiva/" target="_blank">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/554735333925" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-services">
+                    <h4 class="footer-heading">Nossos Serviços</h4>
+                    <ul class="footer-links">
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Funilaria</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Pintura em Cabine Pressurizada</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Martelinho de Ouro</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Polimento em Geral</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Laboratório de Tintas</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4 class="footer-heading">Contato Rápido</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:+554735333925"><i class="fas fa-phone-alt"></i> +55 47 3533-3925</a></li>
+                        <li><a href="https://wa.me/554735333925" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                        <li><a href="https://www.facebook.com/recuperautoreparacaoautomotiva/" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                        <li><a href="#location"><i class="fas fa-map-marker-alt"></i> Ituporanga - SC</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 RecuperAuto - Reparação Automotiva Premium. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/554735333925?text=Olá! Gostaria de informações sobre os serviços da RecuperAuto" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileNavClose = document.getElementById('mobileNavClose');
+        const navOverlay = document.getElementById('navOverlay');
+        
+        // Abrir menu mobile
+        mobileMenuToggle.addEventListener('click', function() {
+            mobileNav.classList.add('active');
+            navOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        // Fechar menu mobile
+        function closeMobileMenu() {
+            mobileNav.classList.remove('active');
+            navOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        mobileNavClose.addEventListener('click', closeMobileMenu);
+        navOverlay.addEventListener('click', closeMobileMenu);
+        
+        // Fechar menu ao clicar em um link
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('#') && this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const headerHeight = header.offsetHeight;
+                        const targetPosition = targetElement.offsetTop - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Video controls (simplificado)
+        const video = document.getElementById('backgroundVideo');
+        if (video && /Mobi|Android/i.test(navigator.userAgent)) {
+            video.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
