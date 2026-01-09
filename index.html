@@ -50,7 +50,7 @@
             background-color: var(--branco);
             overflow-x: hidden;
             position: relative;
-            padding-top: 100px; /* IMPORTANTE: Espaço para o cabeçalho fixo */
+            padding-top: 160px; /* Aumentado para logo EXTRA GRANDE */
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -73,7 +73,7 @@
         }
 
         /* =========================================== */
-        /* HEADER CORRIGIDO - APENAS LOGO E HAMBURGUER */
+        /* HEADER COM LOGO EXTRA GRANDE */
         /* =========================================== */
         header {
             position: fixed;
@@ -86,29 +86,35 @@
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             transition: var(--transicao-rapida);
             border-bottom: 2px solid var(--amarelo);
-            padding: 15px 0;
+            padding: 30px 0; /* Aumentado */
+            height: 160px; /* Aumentado */
         }
 
         header.scrolled {
-            padding: 10px 0;
+            padding: 20px 0;
             background-color: rgba(255, 255, 255, 0.98);
+            height: 120px; /* Altura reduzida quando scrolled */
+        }
+
+        header.scrolled .logo-imagem {
+            height: 90px; /* Logo menor quando scrolled */
         }
 
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 24px;
+            padding: 0 24px;
             position: relative;
-            min-height: 90px;
-            height: auto;
+            height: 100%;
         }
 
-        /* LOGO RESPONSIVA - SOLUÇÃO DEFINITIVA */
+        /* LOGO EXTRA GRANDE - TAMANHO MAXIMIZADO */
         .logo-container {
             position: absolute;
             left: 50%;
-            transform: translateX(-50%);
+            top: 50%;
+            transform: translate(-50%, -50%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -116,14 +122,14 @@
             transition: var(--transicao-padrao);
             z-index: 10;
             width: auto;
-            padding: 5px 0;
+            height: 100%;
         }
 
         .logo-imagem {
             width: auto;
-            height: 65px; /* Altura fixa para desktop */
-            max-height: 65px;
-            min-height: 30px; /* Altura mínima para mobile */
+            height: 150px; /* TAMANHO EXTRA GRANDE */
+            max-height: 150px;
+            min-height: 60px;
             object-fit: contain;
             transition: var(--transicao-padrao);
             filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.1));
@@ -143,8 +149,8 @@
             cursor: pointer;
             z-index: 1001;
             transition: var(--transicao-padrao);
-            width: 50px;
-            height: 50px;
+            width: 70px; /* Aumentado */
+            height: 70px; /* Aumentado */
             border-radius: var(--borda-arredondada);
             background: rgba(10, 92, 54, 0.05);
             align-items: center;
@@ -170,7 +176,7 @@
             z-index: 1000;
             transition: right 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
             box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
-            padding: 80px 30px 30px;
+            padding: 140px 30px 30px; /* Aumentado para logo maior */
             display: flex;
             flex-direction: column;
             border-left: 3px solid var(--amarelo);
@@ -234,7 +240,7 @@
 
         .mobile-nav-close {
             position: absolute;
-            top: 25px;
+            top: 50px; /* Ajustado para logo maior */
             right: 25px;
             background: rgba(10, 92, 54, 0.1);
             border: none;
@@ -1024,7 +1030,11 @@
             }
             
             .logo-imagem {
-                height: 60px;
+                height: 130px; /* Reduzido um pouco */
+            }
+            
+            header.scrolled .logo-imagem {
+                height: 80px;
             }
             
             .hero-title h1 {
@@ -1054,11 +1064,35 @@
             .service-card {
                 padding: 35px 25px;
             }
+            
+            .logo-imagem {
+                height: 110px;
+            }
+            
+            header.scrolled .logo-imagem {
+                height: 70px;
+            }
         }
 
         @media (max-width: 992px) {
+            body {
+                padding-top: 150px; /* Ajustado para header maior */
+            }
+            
+            header {
+                height: 150px;
+            }
+            
             .logo-imagem {
-                height: 55px;
+                height: 100px;
+            }
+            
+            header.scrolled {
+                height: 110px;
+            }
+            
+            header.scrolled .logo-imagem {
+                height: 65px;
             }
             
             .about-content,
@@ -1092,21 +1126,34 @@
 
         @media (max-width: 768px) {
             body {
-                padding-top: 90px;
+                padding-top: 130px;
+            }
+            
+            header {
+                height: 130px;
+                padding: 25px 0;
             }
             
             .logo-imagem {
-                height: 50px;
+                height: 90px;
+            }
+            
+            header.scrolled {
+                height: 100px;
+                padding: 20px 0;
+            }
+            
+            header.scrolled .logo-imagem {
+                height: 60px;
             }
             
             .header-container {
-                min-height: 80px;
-                padding: 10px 20px;
+                padding: 0 20px;
             }
             
             .mobile-menu-toggle {
-                width: 45px;
-                height: 45px;
+                width: 60px;
+                height: 60px;
                 font-size: 24px;
             }
             
@@ -1163,7 +1210,11 @@
 
         @media (max-width: 576px) {
             body {
-                padding-top: 80px;
+                padding-top: 120px;
+            }
+            
+            header {
+                height: 120px;
             }
             
             .hero {
@@ -1171,8 +1222,16 @@
             }
             
             .logo-imagem {
-                height: 45px;
-                min-height: 40px;
+                height: 80px;
+                min-height: 60px;
+            }
+            
+            header.scrolled {
+                height: 90px;
+            }
+            
+            header.scrolled .logo-imagem {
+                height: 55px;
             }
             
             .hero-title h1 {
@@ -1207,6 +1266,8 @@
             
             .mobile-menu-toggle {
                 margin-left: 0;
+                width: 55px;
+                height: 55px;
             }
             
             .video-background video {
@@ -1229,17 +1290,26 @@
         }
 
         @media (max-width: 400px) {
-            .logo-imagem {
-                height: 40px;
-                min-height: 35px;
-            }
-            
             body {
-                padding-top: 70px;
+                padding-top: 110px;
             }
             
-            .header-container {
-                padding: 8px 15px;
+            header {
+                height: 110px;
+                padding: 20px 0;
+            }
+            
+            .logo-imagem {
+                height: 70px;
+                min-height: 55px;
+            }
+            
+            header.scrolled {
+                height: 80px;
+            }
+            
+            header.scrolled .logo-imagem {
+                height: 50px;
             }
             
             .hero-title h1 {
@@ -1254,12 +1324,36 @@
                 padding: 18px 30px;
                 font-size: 14px;
             }
+            
+            .header-container {
+                padding: 0 15px;
+            }
+            
+            .mobile-nav {
+                padding: 120px 20px 20px;
+            }
         }
 
         @media (max-width: 350px) {
+            body {
+                padding-top: 100px;
+            }
+            
+            header {
+                height: 100px;
+            }
+            
             .logo-imagem {
-                height: 35px;
-                min-height: 30px;
+                height: 60px;
+                min-height: 50px;
+            }
+            
+            header.scrolled {
+                height: 70px;
+            }
+            
+            header.scrolled .logo-imagem {
+                height: 45px;
             }
         }
     </style>
@@ -1273,7 +1367,7 @@
                 <i class="fas fa-bars"></i>
             </button>
             
-            <!-- Logo CENTRALIZADA (RESPONSIVA) -->
+            <!-- Logo EXTRA GRANDE E CENTRALIZADA -->
             <a href="#" class="logo-container">
                 <!-- SUA LOGO JÁ ESTÁ AQUI -->
                 <img src="logologo.png" alt="Recuperauto - Reparação Automotiva" class="logo-imagem">
